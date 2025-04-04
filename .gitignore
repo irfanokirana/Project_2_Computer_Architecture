@@ -1,0 +1,11 @@
+*-project1.tar.gz
+.direnv
+.vim/coc-settings.json
+cachesim
+compile_commands.json
+matrix_addition/.docker_image_hash
+matrix_addition/pin-3.17
+matrix_addition/results
+matrix_addition/tools/obj-ia32
+matrix_addition/m_add
+test_results
