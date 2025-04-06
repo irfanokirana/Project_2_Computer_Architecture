@@ -27,18 +27,32 @@ struct prefetcher *null_prefetcher_new()
 // ============================================================================
 // TODO feel free to create additional structs/enums as necessary
 
+typedef struct {
+    uint32_t prefetch_amount;
+} sequential_data;
+
 uint32_t sequential_handle_mem_access(struct prefetcher *prefetcher,
                                       struct cache_system *cache_system, uint32_t address,
                                       bool is_miss)
 {
     // TODO: Return the number of lines that were prefetched.
-    return 0;
+    sequential_data *data = (sequential_data *)prefetcher->data;
+    uint32_t prefetched = 0;
+
+    for (uint32_t i = 1; i<= data->prefetch_amount; i++) {
+        uint32_t prefetch_address = address + i * cache_system->line_size;
+        cache_system_mem_access(cache_system, prefetch_address, 'r', true);
+        prefetched++;
+    }
+    return prefetched;
 }
 
 void sequential_cleanup(struct prefetcher *prefetcher)
 {
     // TODO cleanup any additional memory that you allocated in the
     // sequential_prefetcher_new function.
+
+    free(prefetcher->data);
 }
 
 struct prefetcher *sequential_prefetcher_new(uint32_t prefetch_amount)
@@ -49,6 +63,11 @@ struct prefetcher *sequential_prefetcher_new(uint32_t prefetch_amount)
 
     // TODO allocate any additional memory needed to store metadata here and
     // assign to sequential_prefetcher->data.
+
+    sequential_data * data = malloc(sizeof(sequential_data));
+    data->prefetch_amount = prefetch_amount;
+
+    sequential_prefetcher->data = data;
 
     return sequential_prefetcher;
 }
@@ -69,6 +88,8 @@ void adjacent_cleanup(struct prefetcher *prefetcher)
 {
     // TODO cleanup any additional memory that you allocated in the
     // adjacent_prefetcher_new function.
+
+    free(prefetcher->data);
 }
 
 struct prefetcher *adjacent_prefetcher_new()
@@ -98,6 +119,8 @@ void custom_cleanup(struct prefetcher *prefetcher)
 {
     // TODO cleanup any additional memory that you allocated in the
     // custom_prefetcher_new function.
+
+    free(prefetcher->data); 
 }
 
 struct prefetcher *custom_prefetcher_new()

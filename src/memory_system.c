@@ -15,9 +15,9 @@ struct cache_system *cache_system_new(uint32_t line_size, uint32_t sets, uint32_
     cs->stats = stats;
 
     // TODO: calculate the index bits, offset bits and tag bits.
-    cs->index_bits = 0;
-    cs->offset_bits = 0;
-    cs->tag_bits = 0;
+    cs->index_bits = (int) log2(cs->num_sets);
+    cs->offset_bits = (int) log2(cs->line_size);
+    cs->tag_bits =  32 - (cs->index_bits + cs->offset_bits);
 
     cs->offset_mask = 0xffffffff >> (32 - cs->offset_bits);
     cs->set_index_mask = 0xffffffff >> cs->tag_bits;
@@ -172,5 +172,27 @@ struct cache_line *cache_system_find_cache_line(struct cache_system *cache_syste
     // TODO Return a pointer to the cache line within the given set that has
     // the given tag. If no such element exists, then return NULL.
 
+    // compute start index
+    int set_start_idx = set_idx * cache_system->associativity;
+
+    // loop thorugh all cache lines in that set
+    // number of lines in that set corresponds to the associativity of the cache
+    
+
+    for (int i = 0; i < cache_system->associativity; i++) {
+        // start at set start index and add offset, get address
+        struct cache_line *cl = &cache_system->cache_lines[set_start_idx + i];
+
+        //printf("Checking set %d, index %d, stored tag 0x%x, searching for tag 0x%x\n", set_idx, i, cl->tag, tag);
+
+        // check if any cache lines match the provided tag and the valid bit is set to 1
+        // if match found return pointer to cache line
+        if (cl->tag == tag) {
+            // printf("[FIND_CL_DEBUG] Hit! cl tag: %d, tag: %d\n", cl->tag, tag);
+            return cl;
+        }
+    }
+
+    // if no match found return null
     return NULL;
 }
