@@ -23,6 +23,6 @@ Similar techniques to this prefetcher have already been implemented in hardware.
 
 References:
 [1] Tien-Fu Chen and Jean-Loup Baer, "Effective hardware-based data prefetching for high-performance processors," in IEEE Transactions on Computers, vol. 44, no. 5, pp. 609-623, May 1995, doi: 10.1109/12.381947.
-keywords: {Prefetching;Delay;Hardware;Bandwidth;Counting circuits;Computer science;Timing;Predictive models;Bridges;Coherence},
-[2] “Hardware Prefetch Controls for Intel® Atom® Cores.” Intel, www.intel.com/content/www/us/en/content-details/795247/hardware-prefetch-controls-for-intel-atom-cores.html 
-[3] Documentation – Arm Developer, developer.arm.com/documentation/100048/0100/level-1-memory-system/memory-prefetching/data-prefetching-and-monitoring
+keywords: {Prefetching;Delay;Hardware;Bandwidth;Counting circuits;Computer science;Timing;Predictive models;Bridges;Coherence} \\
+[2] “Hardware Prefetch Controls for Intel® Atom® Cores.” Intel, www.intel.com/content/www/us/en/content-details/795247/hardware-prefetch-controls-for-intel-atom-cores.html \\
+[3] Documentation – Arm Developer, developer.arm.com/documentation/100048/0100/level-1-memory-system/memory-prefetching/data-prefetching-and-monitoring \\
