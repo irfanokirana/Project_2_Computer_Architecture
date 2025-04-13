@@ -22,6 +22,7 @@ Similar techniques to this prefetcher have already been implemented in hardware.
 5. Cite any additional sources that you used to develop your prefetcher.
 
 References:
+
 [1] Tien-Fu Chen and Jean-Loup Baer, "Effective hardware-based data prefetching for high-performance processors," in IEEE Transactions on Computers, vol. 44, no. 5, pp. 609-623, May 1995, doi: 10.1109/12.381947.
 keywords: {Prefetching;Delay;Hardware;Bandwidth;Counting circuits;Computer science;Timing;Predictive models;Bridges;Coherence}
 
