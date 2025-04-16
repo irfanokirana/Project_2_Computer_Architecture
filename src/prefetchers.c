@@ -107,9 +107,9 @@ typedef struct {
 } custom_data;
 
 // hash function
-uint32_t prediction_table_index(uint32_t address) {
+uint32_t prediction_table_index(uint32_t address, uint32_t offset_bits) {
     // shift by 5 to ignore offset bits
-    return (address >> 5) % RPT_SIZE;
+    return (address >> offset_bits) % RPT_SIZE;
 }
 
 uint32_t custom_handle_mem_access(struct prefetcher *prefetcher, struct cache_system *cache_system,
@@ -118,7 +118,7 @@ uint32_t custom_handle_mem_access(struct prefetcher *prefetcher, struct cache_sy
     uint32_t prefetched = 0;
     custom_data *data = (custom_data *)prefetcher->data;
     // hash the current memory address to get an index into the prediction table
-    uint32_t index = prediction_table_index(address);
+    uint32_t index = prediction_table_index(address, cache_system->offset_bits);
     // get the specific entry in the prediction table that corresponds to this access
     // entry tracks the last addess, stride, and if the slot has been used yet
     prediction_table_entry *entry = &data->table[index];
